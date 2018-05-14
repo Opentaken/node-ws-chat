@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>  
+    <input name='username' type='text'/>
+    <input name='usercode' type='text'/>
+    <input value='登陆' type='button'/>
+  </body>
+  <script src="/javascripts/jq.min.js"></script>
+  <script type="text/javascript">
+    $("input:button").click(function(){
+        $.post('users/login/save',{
+            name: $("input[name=username]").val(),
+            code: $("input[name=usercode]").val()
+        },function(data){
+            window.location.href="/list"
+        })
+    })
+  </script>  
+</html>

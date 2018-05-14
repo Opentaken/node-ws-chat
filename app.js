@@ -2,6 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+let session = require('express-session')
+let bodyParser = require('body-parser');
 var logger = require('morgan');
 var http = require('http');
 var WebSocket = require('ws');
@@ -21,8 +23,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 定义数据解析器
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-
+app.use(session({
+  secret: 'recall',
+  name: 'testapp',
+  cookie: {
+      maxAge: 80000
+  },
+  resave: false,
+  saveUninitialized: true
+}));
 
 // 引用Server类:
 const WebSocketServer = WebSocket.Server;
