@@ -44,7 +44,7 @@ wss.on('connection', function (ws,ww) {
     console.log(message)
     let data = JSON.parse(message)
     wss.clients.forEach(function each(client) {
-      if(client.protocol==data.tou){
+      if(client.protocol==data.to){
         client.send(message);
       }
     });
