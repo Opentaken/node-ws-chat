@@ -10,6 +10,10 @@ router.post('/login/save', function(req, res, next) {
     userName: req.body.name,
     userCode: req.body.code
   }
+  console.log(req.session.info)
+  res.send(req.session.info);
+});
+router.get('/login/get', function(req, res, next) {
   res.send(req.session.info);
 });
 
