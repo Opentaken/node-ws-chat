@@ -4,12 +4,22 @@
     <title><%= title %></title>
      <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/chat.css' />
+    <script src="javascripts/jq.min.js"></script>
   </head>
   <body>  
       <div id="show">  
       </div>  
+      <h2>
+            访客页面
+      </h2>
       <div class="main">
-         <a href="javascript:void(0)" onclick="exit()">退出</a>  
+         <a href="javascript:void(0)" onclick="exit()">退出</a>
+            <div class="sevserPart">
+                <span onclick="changeTo('liuyun')">客服，刘</span>
+                  &nbsp; &nbsp;
+                <span onclick="changeTo('cairh')">客服，蔡</span>
+            </div>
+
           <ul id="chatWindow">
             
           </ul>
@@ -19,11 +29,35 @@
       </div>
       
   </body>  
+
   <script type="text/javascript">
-  var name="liuyun";
+    var name;
+    $.ajax({
+      url:'/users/login/get',
+      type:'GET', 
+      // async:false,
+      timeout:5000,    //超时时间
+      dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+       data:{
+        // name:'yang',age:25
+      },
+      success:function(data,textStatus,jqXHR){
+          console.log(data)
+          name=data.name;
+          console.log(textStatus);
+          console.log(jqXHR);
+      },
+      // error:function(xhr,textStatus){
+      //     console.log('错误')
+      //     console.log(xhr)
+      //     console.log(textStatus)
+      // },
+    });
+  
   var ws = new WebSocket("ws://127.0.0.1:3300",[user=name]); 
   var chatWindow=document.getElementById('chatWindow');
   var myMessage=document.getElementById("message");
+  var serverName;
   ws.onopen = function() {  
       console.log("连接状态", ws);  
       console.log("open");  
@@ -51,17 +85,26 @@
 
         return
       }
+      if(!serverName){
+
+        return
+      }
       addIntoWindow('client',name,message)
       // console.log("发送", nm); 
-      var totalMea = {
-        to : 'cairh',
+      var totalMes = {
+        to : serverName ,//客服人员
         message : message,
         user:name
       }
-      ws.send(JSON.stringify(totalMea));  
+
+      ws.send(JSON.stringify(totalMes));  
       myMessage.value='';
   };  
-
+  function changeTo(name){
+      serverName=name;
+      console.log(serverName);
+      alert('为你换客服成功');
+  };
   function addIntoWindow(flag,user,message){
       var li=document.createElement('LI');
       var myName;
