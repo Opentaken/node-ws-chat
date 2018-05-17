@@ -2,7 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-let session = require('express-session')
+let session = require('express-session');
+let redisStore = require('connect-redis')(session);
 let bodyParser = require('body-parser');
 var logger = require('morgan');
 var http = require('http');
@@ -27,15 +28,35 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(session({
-  secret: 'recall',
-  name: 'testapp',
-  cookie: {
-      maxAge: 80000
-  },
-  resave: false,
-  saveUninitialized: true
-}));
+//session和redis
+if (ture) {
+  //使用session
+  app.use(session({
+    secret: 'recall',
+    name: 'testapp',
+    cookie: {
+        maxAge: 80000
+    },
+    resave: false,
+    saveUninitialized: true
+  }));
+} else {
+  // 使用redis
+  app.use(session({
+      store: new redisStore({
+          host: '127.0.0.1',
+          port: '6379',
+          db: 2
+      }),
+      cookie: {
+          maxAge: 80000
+      },
+      name: 'testapp',
+      secret: 'recall',
+      resave: false,
+      saveUninitialized: true
+  }));
+}
 
 // 引用Server类:
 const WebSocketServer = WebSocket.Server;
