@@ -51,14 +51,13 @@
     //   //     console.log(textStatus)
     //   // },
     // });
-  var ws = new WebSocket("ws://127.0.0.1:3300",[user=name]); 
+  var ws = new WebSocket("ws://192.168.1.112:3300",[user=name]); 
   var chatWindow=document.getElementById('chatWindow');
   var myMessage=document.getElementById("message");
   var serverName;
   ws.onopen = function() {  
       console.log("连接状态", ws);  
-      console.log("open");  
-      // ws.open("start");  
+      console.log("open");
   };  
   ws.onmessage = function(evt) {
       console.log(evt);
@@ -78,7 +77,7 @@
   };  
     
   function send() {  
-      var message = myMessage.value;
+      var ii = document.getElementById("message").value;
       if(!message){
 
         return

@@ -4,7 +4,6 @@
     <title><%= title %></title>
      <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/chat.css' />
-    <script src="javascripts/jq.min.js"></script>
   </head>
   <body>  
       <div id="show">  
@@ -54,7 +53,7 @@
       },
     });
   
-  var ws = new WebSocket("ws://127.0.0.1:3300",[user=name]); 
+  var ws = new WebSocket("ws://192.168.1.112:3300",[user=name]); 
   var chatWindow=document.getElementById('chatWindow');
   var myMessage=document.getElementById("message");
   var serverName="liuyun";//默认客服
