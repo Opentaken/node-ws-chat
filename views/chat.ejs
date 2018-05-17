@@ -82,7 +82,6 @@
   function send() {  
       var message = myMessage.value;
       if(!message){
-
         return
       }
       addIntoWindow('client',name,message)
@@ -99,7 +98,6 @@
   function changeTo(name){
       serverName=name;
       console.log(serverName);
-      alert('为你换客服成功');
   };
   function addIntoWindow(flag,user,message){
       var li=document.createElement('LI');
