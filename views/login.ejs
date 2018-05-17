@@ -11,12 +11,19 @@
   </body>
   <script src="/javascripts/jq.min.js"></script>
   <script type="text/javascript">
+    
     $("input:button").click(function(){
-        $.post('users/login/save',{
-            name: $("input[name=username]").val(),
-            code: $("input[name=usercode]").val()
+        $.post('users/login',{
+            loginName: $("input[name=username]").val(),
+            password: $("input[name=usercode]").val()
         },function(data){
-            window.location.href="/list"
+           console.log(data);
+            if(data[0]){
+              window.location.href="/list";
+              // alert('登录成功');
+            }else{
+              alert('登录失败');
+            }
         })
     })
   </script>  

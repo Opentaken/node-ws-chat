@@ -4,19 +4,20 @@
     <title><%= title %></title>
      <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/chat.css' />
-    <script src="javascripts/jq.min.js"></script>
   </head>
   <body>  
       <div id="show">  
       </div>  
-       <h2>客服页面</h2> 
+      <h2>
+            访客页面
+      </h2>
       <div class="main">
          <a href="javascript:void(0)" onclick="exit()">退出</a>
-           <!--  <div class="sevserPart">
-                <span onclick="changeTo('liuyun')">我是客服，刘</span>
+            <div class="sevserPart">
+                <span onclick="changeTo('liuyun')">客服，刘</span>
                   &nbsp; &nbsp;
-                <span onclick="changeTo('cairh')">我是客服，蔡</span>
-            </div> -->
+                <span onclick="changeTo('cairh')">客服，蔡</span>
+            </div>
 
           <ul id="chatWindow">
             
@@ -29,35 +30,37 @@
   </body>  
 
   <script type="text/javascript">
-  var name="liuyun"
-    // $.ajax({
-    //   url:'/users/login/get',
-    //   type:'GET', 
-    //   // async:false,
-    //   timeout:5000,    //超时时间
-    //   dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
-    //    data:{
-    //     // name:'yang',age:25
-    //   },
-    //   success:function(data,textStatus,jqXHR){
-    //       console.log(data)
-    //       name=data.name;
-    //       console.log(textStatus);
-    //       console.log(jqXHR);
-    //   },
-    //   // error:function(xhr,textStatus){
-    //   //     console.log('错误')
-    //   //     console.log(xhr)
-    //   //     console.log(textStatus)
-    //   // },
-    // });
+    var name;
+    $.ajax({
+      url:'/users/login/get',
+      type:'GET', 
+      async:false,
+      timeout:5000,    //超时时间
+      dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+       data:{
+        // name:'yang',age:25
+      },
+      success:function(data,textStatus,jqXHR){
+          console.log(data)
+          name=data.userName;
+          // console.log(textStatus);
+          // console.log(jqXHR);
+      },
+      error:function(xhr,textStatus){
+          console.log('错误')
+          console.log(xhr)
+          console.log(textStatus)
+      },
+    });
+  
   var ws = new WebSocket("ws://192.168.1.112:3300",[user=name]); 
   var chatWindow=document.getElementById('chatWindow');
   var myMessage=document.getElementById("message");
-  var serverName;
+  var serverName="liuyun";//默认客服
   ws.onopen = function() {  
       console.log("连接状态", ws);  
-      console.log("open");
+      console.log("open");  
+      // ws.open("start");  
   };  
   ws.onmessage = function(evt) {
       console.log(evt);
@@ -65,7 +68,6 @@
       // console.log(evt.data.message);
       // console.log(JSON.parse(message);
       let data=JSON.parse(evt.data);
-      serverName=data.user,
       addIntoWindow('costmon',data.user,data.message);
   };  
   ws.onclose = function(evt) {  
@@ -77,13 +79,8 @@
   };  
     
   function send() {  
-      var ii = document.getElementById("message").value;
+      var message = myMessage.value;
       if(!message){
-
-        return
-      }
-      if(!serverName){
-          alert('暂无访问人员加入')
         return
       }
       addIntoWindow('client',name,message)
@@ -93,12 +90,13 @@
         message : message,
         user:name
       }
+
       ws.send(JSON.stringify(totalMes));  
       myMessage.value='';
   };  
   function changeTo(name){
-      name=name;
-      alert('更换客服角色成功');
+      serverName=name;
+      console.log(serverName);
   };
   function addIntoWindow(flag,user,message){
       var li=document.createElement('LI');
