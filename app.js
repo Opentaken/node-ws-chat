@@ -1,15 +1,15 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+let config = require('./config.js')
 var cookieParser = require('cookie-parser');
 let session = require('express-session');
 let redisStore = require('connect-redis')(session);
 let bodyParser = require('body-parser');
 var logger = require('morgan');
 var http = require('http');
-var WebSocket = require('ws');
+let WebSocket = require('./webscoket')
 
-let config = require('./config.js')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -52,76 +52,12 @@ if (true) {
       cookie: {
           maxAge: config.sessionConfig.maxAge
       },
-      name: config.sessionConfig.secret,
-      secret: config.sessionConfig.name,
+      name: config.sessionConfig.name,
+      secret: config.sessionConfig.secret,
       resave: false,
       saveUninitialized: true
   }));
 }
-
-// 引用Server类:
-const WebSocketServer = WebSocket.Server;
-
-// 实例化:
-const wss = new WebSocketServer({
-    port: 3300
-});
-
-let user = [{
-  "name": 'aaa',
-  "status": 0
-},{
-  "name": 'bbb',
-  "status": 0
-},{
-  "name": 'ccc',
-  "status": 0
-}]
-let list_use = [];
-function listClient(ww){
-  let headers = ww.headers;
-  if(ww.url == '/list'){
-    for( i in headers){
-      if(i=='sec-websocket-protocol'){
-        wss.clients.forEach(function each(client) {
-          if(client.protocol==headers[i]){
-            client.send(JSON.stringify(user));
-          }
-        });
-        if(list_use.indexOf(headers[i])<0){
-          list_use.push(headers[i])
-        };
-      }
-    };
-  }else{
-    for( i in headers){
-      if(i=='sec-websocket-protocol'){
-        if(list_use.indexOf(headers[i])>-1){
-          list_use.splice(list_use.findIndex(item => item === headers[i]), 1)
-        }
-      }
-    }
-  }
-}
-
-
-wss.on('connection', function (ws,ww) {
-  listClient(ww);
-  ws.on('message', function (message) {
-    console.log(message)
-    let data = JSON.parse(message)
-    wss.clients.forEach(function each(client) {
-      if(client.protocol==data.to){
-        client.send(message);
-      }
-    });
-  })
-
-});
-
-
-
-
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

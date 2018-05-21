@@ -9,6 +9,7 @@ router.get('/chat', function(req, res, next) {
   res.render('chat', { title: 'Express' });
 });
 router.get('/', function(req, res, next) {
+  console.log("....")
   res.render('login', { title: 'Express' });
 });
 router.get('/list', function(req, res, next) {
