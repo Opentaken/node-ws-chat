@@ -1,0 +1,19 @@
+#kf_list{
+  list-style: none;
+}
+#kf_list li{
+  display: block;
+  width: 200px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #ccc;
+}
+#kf_list li span{
+  font-size: 14px;
+  text-indent: 5px;
+  display: inline-block;
+  width: 50px;
+}
+#kf_list li span:last-of-type{
+  font-size: 12px;
+}

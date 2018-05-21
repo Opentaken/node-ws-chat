@@ -3,52 +3,11 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/list.css' />
   </head>
   <body>  
-      <ul id="kf_list"></ul> 
+      <ul id="kf_list"></ul>
   </body>
   <script src="/javascripts/jq.min.js"></script>
-  <script type="text/javascript">
-  var ws = new WebSocket("ws://192.168.1.112:3300/list",[user='cao----dan']);    
-  ws.onopen = function() {  
-      console.log("连接状态", ws);  
-      console.log("open");  
-      // ws.open("start");  
-  };  
-  ws.onmessage = function(evt) {
-      console.log(evt.data)
-      let tst = JSON.parse(evt.data);
-      let hml = '';
-      for(i=0;i<tst.length;i++){
-          hml += "<li><a href='/index?touser="+tst[i].name+"'>"+tst[i].name+"</a></li>"
-      }
-      $("#kf_list").html(hml)
-  };  
-  ws.onclose = function(evt) {  
-      console.log("WebSocketClosed!");  
-      console.log(evt);  
-  };  
-  ws.onerror = function(evt) {  
-      console.log("WebSocketError!");  
-  };  
-    
-  function send() {  
-      var ii = document.getElementById("message").value;
-      var ww = document.getElementById("name").value;
-      var we = {
-        qq : ii,
-        id : ww,
-        user : 'cao----dan',
-        tou : 'wu----yu'
-      }
-      var nm = JSON.stringify(we)
-      console.log("发送", nm);  
-      ws.send(nm);  
-  };  
-    
-  function exit() {  
-      var r = ws.close();  
-      console.log("退出", r);  
-  }  
-  </script>  
+  <script type="text/javascript" src="/javascripts/list.js"></script>  
 </html>

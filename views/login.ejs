@@ -3,11 +3,14 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/login.css' />
   </head>
-  <body>  
-    <input name='username' type='text'/>
-    <input name='usercode' type='text'/>
-    <input value='登陆' type='button'/>
+  <body>
+    <div class="login-box">
+        <label>账号：<input name='username' type='text'/></label>
+        <label>密码：<input name='usercode' type='text'/></label>
+        <input value='登陆' type='button'/>
+    </div> 
   </body>
   <script src="/javascripts/jq.min.js"></script>
   <script type="text/javascript">

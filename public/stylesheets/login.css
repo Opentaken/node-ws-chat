@@ -1,0 +1,32 @@
+body,html{
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+.login-box{
+  width: 300px;
+  padding-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.login-box label{
+  display:block;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 16px;
+}
+.login-box label input{
+  border: 1px solid #ccc;
+  height: 24px;
+  text-indent: 5px;
+}
+.login-box input[type=button]{
+  display: block;
+  height: 30px;
+  width: 60px;
+  margin: 0 auto;
+}

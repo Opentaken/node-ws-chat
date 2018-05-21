@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var sql = require('../auxiliary/mySql.js');
-/* GET users listing. */
+
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
@@ -17,9 +17,13 @@ router.get('/login/get', function(req, res, next) {
   res.send(req.session.info);
 });
 
-router.post('/login', function(request, response,next){	
-  sql.adminLogin('loginTable',request.body,function(result){
-    	response.send(result);
+router.post('/login', function(req, res,next){	
+  sql.adminLogin('loginTable',req.body,function(result){
+    req.session.info = {
+      userName: req.body.name,
+      userCode: req.body.code
+    }
+    	res.send(result);
 	})	
 });
 module.exports = router;

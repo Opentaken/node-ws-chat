@@ -9,7 +9,7 @@ const wss = new WebSocketServer({
 
 let user = [{
   "name": 'aa33a',
-  "status": 0
+  "status": 1
 },{
   "name": 'bbb',
   "status": 0
