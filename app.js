@@ -9,6 +9,7 @@ var logger = require('morgan');
 var http = require('http');
 var WebSocket = require('ws');
 
+let config = require('./config.js')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -29,13 +30,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //session和redis
-if (ture) {
+if (true) {
   //使用session
   app.use(session({
-    secret: 'recall',
-    name: 'testapp',
+    secret: config.sessionConfig.secret,
+    name: config.sessionConfig.name,
     cookie: {
-        maxAge: 80000
+        maxAge: config.sessionConfig.maxAge
     },
     resave: false,
     saveUninitialized: true
@@ -44,15 +45,15 @@ if (ture) {
   // 使用redis
   app.use(session({
       store: new redisStore({
-          host: '127.0.0.1',
-          port: '6379',
-          db: 2
+          host: config.redisConfig.host,
+          port: config.redisConfig.port,
+          db: config.redisConfig.db
       }),
       cookie: {
-          maxAge: 80000
+          maxAge: config.sessionConfig.maxAge
       },
-      name: 'testapp',
-      secret: 'recall',
+      name: config.sessionConfig.secret,
+      secret: config.sessionConfig.name,
       resave: false,
       saveUninitialized: true
   }));
