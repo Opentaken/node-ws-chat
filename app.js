@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //session和redis
-if (ture) {
+if (true) {
   //使用session
   app.use(session({
     secret: 'recall',
