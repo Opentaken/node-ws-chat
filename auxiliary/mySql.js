@@ -1,15 +1,16 @@
 
 var mysql = require('mysql');
 var DATABASE = 'chat';
+var config=require('../config.js')
 var connection;
 
 function openSql() {
 	connection = mysql.createConnection({
-		host: '127.0.0.1',
-		user: 'root',
-		password: 'root',
-		port: '3306',
-		database: 'chat'
+		host: config.sqlConfig.host,
+		user: config.sqlConfig.user,
+		password: config.sqlConfig.password,
+		port: config.sqlConfig.port,
+		database: config.sqlConfig.database
 	});
 }
 module.exports = {
