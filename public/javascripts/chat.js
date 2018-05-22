@@ -4,59 +4,53 @@ var chatWindow=document.getElementById('chatWindow');
 var myMessage=document.getElementById("message");
 var serverName;
 ws.onopen = function() {  
-    console.log("连接状态", ws);  
-    console.log("open");
+  console.log("连接状态", ws);  
+  console.log("open");
 };  
 ws.onmessage = function(evt) {
-    console.log(evt);
-    console.log('---');
-    let data=JSON.parse(evt.data);
-    serverName=data.user,
-    addIntoWindow('costmon',data.user,data.message);
+  let data=JSON.parse(evt.data);
+  serverName=data.user,
+  addIntoWindow('costmon',data.user,data.message);
 };  
 ws.onclose = function(evt) {  
-    console.log("WebSocketClosed!");  
-    console.log(evt);  
+  console.log("WebSocketClosed!");  
 };  
 ws.onerror = function(evt) {  
-    console.log("WebSocketError!");  
+  console.log("WebSocketError!");  
 };  
   
 function send() {  
-    var ii = document.getElementById("message").value;
-    if(!message){
-
-      return
-    }
-    if(!serverName){
-        alert('暂无访问人员加入')
-      return
-    }
-    addIntoWindow('client',name,message)
-    // console.log("发送", nm); 
-    var totalMes = {
-      to : serverName ,//客服人员
-      message : message,
-      user:name
-    }
-    ws.send(JSON.stringify(totalMes));  
-    myMessage.value='';
+  var ii = document.getElementById("message").value;
+  if(!message){
+    return
+  }
+  if(!serverName){
+    alert('暂无访问人员加入')
+    return
+  }
+  addIntoWindow('client',name,message)
+  var totalMes = {
+    to : serverName ,//客服人员
+    message : message,
+    user:name
+  }
+  ws.send(JSON.stringify(totalMes));  
+  myMessage.value='';
 };  
 function changeTo(name){
-    name=name;
-    alert('更换客服角色成功');
+  name=name;
+  alert('更换客服角色成功');
 };
 function addIntoWindow(flag,user,message){
-    var li=document.createElement('LI');
-    var myName;
-     if(flag=='client'){
-       li.classList.add('right'); 
-     }else if(flag=='costmon'){
-       li.classList.add('left');
-     }
-     li.innerHTML=`<p>${user} ${getNow()}</p><p>${message}</p>`;
-
-     chatWindow.appendChild(li);
+  var li=document.createElement('LI');
+  var myName;
+    if(flag=='client'){
+      li.classList.add('right'); 
+    }else if(flag=='costmon'){
+      li.classList.add('left');
+    }
+    li.innerHTML=`<p>${user} ${getNow()}</p><p>${message}</p>`;
+    chatWindow.appendChild(li);
 };
 function getNow(){
   let time=new Date();
@@ -83,7 +77,17 @@ function getNow(){
   }
   return `${year}-${month}-${day} ${hour}:${month}:${sec}`;
 };
+
 function exit() {  
     var r = ws.close();  
     console.log("退出", r);  
-}  
+}
+
+function close(){
+  $(".list").show();
+  $(".chatBox,.inputBox").addClass('tablist')
+}
+
+$(".colse").click(function(){
+  close()
+})

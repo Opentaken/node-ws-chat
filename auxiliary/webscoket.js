@@ -47,14 +47,17 @@ function listClient(ww){
 
 wss.on('connection', function (ws,ww) {
   listClient(ww);
+  console.log("-----连接-----")
   ws.on('message', function (message) {
-    console.log(message)
     let data = JSON.parse(message)
     wss.clients.forEach(function each(client) {
       if(client.protocol==data.to){
         client.send(message);
       }
     });
+  })
+  ws.on('close', function(q) {
+    console.log("-----关闭-----")
   })
 
 });

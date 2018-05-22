@@ -14,7 +14,7 @@
   </body>
   <script src="/javascripts/jq.min.js"></script>
   <script type="text/javascript">
-    
+    // console.log(c.sort(compare))
     $("input:button").click(function(){
         $.post('users/login',{
             loginName: $("input[name=username]").val(),
@@ -22,7 +22,7 @@
         },function(data){
            console.log(data);
             if(data[0]){
-              window.location.href="/list";
+              window.location.href="/chat";
               // alert('登录成功');
             }else{
               alert('登录失败');

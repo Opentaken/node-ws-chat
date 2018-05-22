@@ -1,8 +1,16 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+*{
+	margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+  list-style: none;
 }
-
-a {
-  color: #00B7FF;
+a{
+  text-decoration: none;
+}
+body,html {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
 }

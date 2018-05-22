@@ -1,14 +1,60 @@
-#chatWindow{
-	/*background-color: pink;*/
-	width: 600px;
-	height: 400px;
-	overflow-y: auto;
-	border: 1px solid #000;
-
+.main{
+	position: relative;
+	height: 100%;
 }
-
-li{
-	list-style: none;
+.list{
+	width: 130px;
+	height: 100%;
+	display: none;
+	border-right: 1px solid #ccc;
+}
+.list li{
+	width: 100%;
+	height: 60px;
+	text-align: left;
+	text-indent: 2em;
+	line-height: 60px;
+	border-bottom: 1px solid #333;
+}
+.chatBox{
+	overflow-y: auto;
+	background: #f3f3f361;
+	border-bottom: 1px solid #ccc;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 200px;
+}
+.inputBox{
+	height: 200px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+#message{
+	width: 100%;
+	height: 150px;
+	border: 0;
+	resize: none;
+	padding: 10px;
+	font-size: 16px;
+}
+.tablist{
+	left: 130px;
+}
+.main a{
+	display: block;
+	width: 70px;
+	height: 35px;
+	text-align: center;
+	line-height: 35px;
+	background: #ccc;
+	color:#000;
+	float: right;
+	margin-right: 20px;
+	border-radius: 2px;
 }
 #chatWindow .right{
 	text-align: right;
