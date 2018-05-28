@@ -26,4 +26,14 @@ router.post('/login', function(req, res,next){
     	res.send(result);
 	})	
 });
+
+router.post('/register', function(req, res, next){
+  sql.addCust('chat_customer_service',req.body,function(result){
+    req.session.info = {
+      userName: req.body.name,
+      userCode: req.body.code
+    }
+    	res.send(result);
+	})
+})
 module.exports = router;

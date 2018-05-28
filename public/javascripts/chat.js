@@ -1,5 +1,5 @@
 var name="liuyun"
-var ws = new WebSocket("ws://192.168.1.112:3300",[user=name]); 
+var ws = new WebSocket("ws://192.168.1.108:3300",[user=name]); 
 var chatWindow=document.getElementById('chatWindow');
 var myMessage=document.getElementById("message");
 var serverName;

@@ -30,11 +30,31 @@ module.exports = {
 				console.log(result)
 				callback(result);
 			}
-			
-			
 		});
 		connection.end();
 	},
+	// 注册客服
+	addCust: function(_collection, data, callback) {
+		openSql();
+		connection.connect();
+		console.log(data)
+		var userAddSql = "INSERT INTO " + _collection + " VALUES ('" + data.custId + "','" + data.custName + "','" + data.login_name +"','" + data.custPassword + "','" + data.custPhone + "','" + data.e_mail + "','" + data.cust_ser_state + "','" + data.reamrk + "')";
+		
+		console.log(userAddSql)
+
+		connection.query(userAddSql, function(err, result) {
+			if (err) {
+				console.log('[INSERT ERROR] - ', err.message);
+				return;
+			}
+			console.log('插入成功')
+			callback(true)
+		})
+		connection.end();
+	},
+
+
+
 	// 查询商品
 	get: function(_collection, obj, callback) {
 		// 一定要这步，要先连接sql

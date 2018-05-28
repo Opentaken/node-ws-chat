@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>客服页面</title>
-     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel='stylesheet' href='/stylesheets/chat.css' />
     <script src="javascripts/jq.min.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="main">
-      <ul class="list">
-        <li>游客1<i></i></li>
-      </ul>
-      <ul id="chatWindow" class="chatBox"></ul>
-      <div class="inputBox">
-        <textarea id="message"></textarea>
-        <a href="javascript:void(0)" onclick="send()">发送</a>
-        <a href="javascript:void(0)" class="colse">关闭</a>
-      </div>
+        <ul class="list">
+            <li>游客1<i></i></li>
+        </ul>
+        <!-- 如果有对话人则给下面ul和div加上 类名 tablist -->
+        <ul id="chatWindow" class="chatBox "></ul>
+        <div class="inputBox ">
+            <textarea id="message"></textarea>
+            <a href="javascript:void(0)" onclick="send()">发送</a>
+            <a href="javascript:void(0)" class="colse">关闭</a>
+        </div>
     </div>
-  </body>  
-  <script type="text/javascript" src="javascripts/chat.js"></script>
+</body>
+<script type="text/javascript" src="javascripts/chat.js"></script>
+
 </html>

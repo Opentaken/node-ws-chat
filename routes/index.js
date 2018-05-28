@@ -15,5 +15,8 @@ router.get('/', function(req, res, next) {
 router.get('/list', function(req, res, next) {
   res.render('list', { title: 'Express' });
 });
+router.get('/register', function(req, res, next) {
+  res.render('register', { title: 'Express' });
+});
 
 module.exports = router;
