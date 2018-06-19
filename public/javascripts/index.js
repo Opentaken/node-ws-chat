@@ -1,30 +1,14 @@
-var name;
-$.ajax({
-  url:'/users/login/get',
-  type:'GET', 
-  async:false,
-  timeout:5000,    //超时时间
-  dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
-   data:{
-    // name:'yang',age:25
-  },
-  success:function(data,textStatus,jqXHR){
-      console.log(data)
-      name=data.userName;
-      // console.log(textStatus);
-      // console.log(jqXHR);
-  },
-  error:function(xhr,textStatus){
-      console.log('错误')
-      console.log(xhr)
-      console.log(textStatus)
-  },
-});
+function getQueryString(name) { 
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+  var r = window.location.search.substr(1).match(reg); 
+  if (r != null) return unescape(r[2]); 
+  return null; 
+}
 
-var ws = new WebSocket("ws://192.168.1.112:3300",[user=name]); 
-var chatWindow=document.getElementById('chatWindow');
-var myMessage=document.getElementById("message");
-var serverName="liuyun";//默认客服
+let ws = new WebSocket("ws://192.168.1.112:3300",[user = getQueryString(userName)]); 
+let chatWindow=document.getElementById('chatWindow');
+let myMessage=document.getElementById("message");
+let serverName="liuyun";//默认客服
 ws.onopen = function() {  
   console.log("连接状态", ws);  
   console.log("open");  
@@ -47,13 +31,13 @@ ws.onerror = function(evt) {
 };  
 
 function send() {  
-  var message = myMessage.value;
+  let message = myMessage.value;
   if(!message){
     return
   }
   addIntoWindow('client',name,message)
   // console.log("发送", nm); 
-  var totalMes = {
+  let totalMes = {
     to : serverName ,//客服人员
     message : message,
     user:name
@@ -67,8 +51,8 @@ function changeTo(name){
   console.log(serverName);
 };
 function addIntoWindow(flag,user,message){
-  var li=document.createElement('LI');
-  var myName;
+  let li=document.createElement('LI');
+  let myName;
    if(flag=='client'){
      li.classList.add('right'); 
    }else if(flag=='costmon'){
@@ -104,6 +88,6 @@ if(sec<10){
 return `${year}-${month}-${day} ${hour}:${month}:${sec}`;
 };
 function exit() {  
-  var r = ws.close();  
+  let r = ws.close();  
   console.log("退出", r);  
 }  

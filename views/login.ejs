@@ -21,7 +21,7 @@
         },function(data){
            console.log(data);
             if(data[0]){
-              window.location.href="/chat";
+              window.location.href="/callback?user_code="+$("input[name=username]").val();
               // alert('登录成功');
             }else{
               alert('登录失败');

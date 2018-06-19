@@ -5,6 +5,9 @@ var router = express.Router();
 router.get('/index', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+router.get('/callback', function(req, res, next) {
+  res.render('callback', { title: 'Express' });
+});
 router.get('/chat', function(req, res, next) {
   res.render('chat', { title: 'Express' });
 });

@@ -1,4 +1,4 @@
-var ws = new WebSocket("ws://192.168.1.112:3300/list",[user='cao----dan']);   
+var ws = new WebSocket("ws://127.0.0.1:3300/list",[user='yonghu1']);   
 ws.onopen = function() {  
   console.log("连接状态", ws);  
   console.log("open");  
@@ -9,17 +9,17 @@ ws.onmessage = function(evt) {
   let tst = JSON.parse(evt.data);
   let hml = '';
   for(i=0;i<tst.length;i++){
-    if(tst[i].status == 1){
-      hml += "<li><span>"+tst[i].name+"</span><span>(在线)</span><a href='/index?touser="+tst[i].name+"'>在线咨询</a></li>"
-    }else{
-      hml += "<li><span>"+tst[i].name+"</span><span>(离线)</span><a href='javascript:void(0)'>不可咨询</a></li>"
+    if(tst[i].user_state == 2){
+      hml += "<li><span>"+tst[i].user_name+"</span><span>(在线)</span><a href='/index?touser="+tst[i].user_code+"'>在线咨询</a></li>"
+    }else if(tst[i].user_state == 1){
+      hml += "<li><span>"+tst[i].user_name+"</span><span>(离线)</span><a href='javascript:void(0)'>不可咨询</a></li>"
     }
   }
   $("#kf_list").html(hml)
 };  
 ws.onclose = function(evt) {  
   console.log("WebSocketClosed!");  
-  console.log(evt);  
+  console.log(evt);
 };  
 ws.onerror = function(evt) {  
   console.log("WebSocketError!");  

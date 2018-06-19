@@ -8,7 +8,7 @@ let redisStore = require('connect-redis')(session);
 let bodyParser = require('body-parser');
 var logger = require('morgan');
 var http = require('http');
-let WebSocket = require('./auxiliary/webscoket'); //webscoket逻辑文件
+require('./auxiliary/webscoket'); //webscoket逻辑文件
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
