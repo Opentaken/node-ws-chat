@@ -1,4 +1,8 @@
 let config = {
+  // localhostConfig:{
+  //   host:'127.0.0.1',
+  //   port:'3300'
+  // },
   sessionConfig: {
     secret: 'recall',
     name: 'testapp',

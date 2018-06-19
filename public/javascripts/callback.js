@@ -4,7 +4,7 @@ function getQueryString(name) {
   if (r != null) return unescape(r[2]); 
   return null; 
 }
-var ws = new WebSocket("ws://127.0.0.1:3300/login",[user=getQueryString('user_code')]);
+var ws = new WebSocket("ws://"+location.hostname+":3300/login",[user=getQueryString('user_code')]);
 ws.onopen = function() {  
   console.log("连接状态", ws);  
   console.log("open");  

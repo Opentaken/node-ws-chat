@@ -1,8 +1,7 @@
 
-var mysql = require('mysql');
-var DATABASE = 'chat';
-var config=require('../config.js')
-var connection;
+const mysql = require('mysql');
+const config=require('../config.js')
+let connection;
 
 function openSql() {
 	connection = mysql.createConnection({
@@ -19,7 +18,7 @@ module.exports = {
 		openSql();
 		connection.connect();
 		console.log(data);
-		var userGetSql = 'SELECT * FROM ' + _collection + ' WHERE user_code = "' + data.loginName + '" AND ' + ' password = "'+ data.password +'"';
+		let userGetSql = 'SELECT * FROM ' + _collection + ' WHERE user_code = "' + data.loginName + '" AND ' + ' password = "'+ data.password +'"';
 		connection.query(userGetSql, function(err, result) {
 			if (err) {
 				console.log('[SELECT ERROR] - ', err.message);
@@ -36,7 +35,7 @@ module.exports = {
 	addCust: function(_collection, data, callback) {
 		openSql();
 		connection.connect();
-		var userAddSql = "INSERT INTO " + _collection + " VALUES ('" + data.userCode + "','" + data.userName + "','" + data.password +"','"  + data.phone + "','" + data.e_mail + "','" + data.state + "','" + data.reamrk + "')";
+		let userAddSql = "INSERT INTO " + _collection + " VALUES ('" + data.userCode + "','" + data.userName + "','" + data.password +"','"  + data.phone + "','" + data.e_mail + "','" + data.state + "','" + data.reamrk + "')";
 		
 		console.log(userAddSql)
 
@@ -53,7 +52,7 @@ module.exports = {
 	userList: (_collection, callback) => {
 		openSql();
 		connection.connect();
-		var userAddSql = userGetSql = 'SELECT * FROM ' + _collection + ' WHERE user_state = "1"';
+		const userAddSql = userGetSql = 'SELECT * FROM ' + _collection + ' WHERE user_state = "1"';
 		connection.query(userAddSql, function(err, result) {
 			if (err) {
 				console.log('[INSERT ERROR] - ', err.message);

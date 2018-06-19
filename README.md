@@ -1,1 +1,2 @@
 # node-ws-chat
+#该项目除了项目本身占用3000端口外还需要由websocket占用3300，其中项目占用端口阔以在根本目录config.js里面进行修改，websocket占用的3300不可修改;

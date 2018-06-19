@@ -4,8 +4,7 @@ function getQueryString(name) {
   if (r != null) return unescape(r[2]); 
   return null; 
 }
-
-let ws = new WebSocket("ws://192.168.1.112:3300",[user = getQueryString(userName)]); 
+let ws = new WebSocket("ws://"+location.hostname+":3300",[user = getQueryString('user_code')]); 
 let chatWindow=document.getElementById('chatWindow');
 let myMessage=document.getElementById("message");
 let serverName="liuyun";//默认客服

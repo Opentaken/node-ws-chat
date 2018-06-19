@@ -9,8 +9,7 @@ const wss = new WebSocketServer({
 });
 
 mysql.userList('chat_user',function(data){
-  let user;//客服信息
-  user = data ;
+  let user = data;//客服信息
   let list_use = [];//记录停留在客服列表页面的用户
   function listClient(ww){
     let headers = ww.headers;
