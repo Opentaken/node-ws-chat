@@ -9,7 +9,18 @@ const wss = new WebSocketServer({
 });
 
 mysql.userList('chat_user',function(data){
+  //客服列表逻辑
   let user = data;//客服信息
+  let record = {};//聊天记录
+  for(i in user){
+    console.log(user[i].user_code)
+    record = {
+      [user[i].user_code] : []
+    }
+    console.log(record);
+  }
+  console.log(record);
+  console.log(Object.keys(record))
   let list_use = [];//记录停留在客服列表页面的用户
   function listClient(ww){
     let headers = ww.headers;
@@ -40,6 +51,8 @@ mysql.userList('chat_user',function(data){
       }
     }
   }
+
+  //对话逻辑
   wss.on('connection', function (ws,ww) {
     listClient(ww);
     console.log("-----连接-----")

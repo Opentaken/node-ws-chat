@@ -5,88 +5,54 @@ function getQueryString(name) {
   return null; 
 }
 let ws = new WebSocket("ws://"+location.hostname+":3300",[user = getQueryString('user_code')]); 
-let chatWindow=document.getElementById('chatWindow');
-let myMessage=document.getElementById("message");
-let serverName="liuyun";//默认客服
-ws.onopen = function() {  
-  console.log("连接状态", ws);  
+
+
+function fmtDate(){
+  var date =  new Date();
+  var y = 1900+date.getYear();
+  var M = "0"+(date.getMonth()+1);
+  var d = "0"+date.getDate();
+  var h = "0"+date.getHours();
+  var m = "0"+date.getMinutes();
+  var s = "0"+date.getSeconds();
+  return y+"-"+M.substring(M.length-2,M.length)+"-"+d.substring(d.length-2,d.length)+" "+h.substring(h.length-2,h.length)+":"+m.substring(m.length-2,m.length)+":"+s.substring(s.length-2,s.length);
+}
+let toUser;
+
+ws.onopen = function() {
   console.log("open");  
-  // ws.open("start");  
 };  
 ws.onmessage = function(evt) {
-  console.log(evt);
-  console.log('---');
-  // console.log(evt.data.message);
-  // console.log(JSON.parse(message);
-  let data=JSON.parse(evt.data);
-  addIntoWindow('costmon',data.user,data.message);
+  insert('receive',JSON.parse(evt.data));
+  toUser = JSON.parse(evt.data).user_code;
+  console.log(toUser)
 };  
 ws.onclose = function(evt) {  
   console.log("WebSocketClosed!");  
-  console.log(evt);  
+  console.log(evt);
 };  
-ws.onerror = function(evt) {  
+ws.onerror = function(evt) {
+  console.log(evt);
   console.log("WebSocketError!");  
 };  
 
 function send() {  
-  let message = myMessage.value;
-  if(!message){
-    return
+  let data = {
+    to: getQueryString('to'),
+    user_code: getQueryString('user_code'),
+    message: $("#message").val(),
+    time: fmtDate()
   }
-  addIntoWindow('client',name,message)
-  // console.log("发送", nm); 
-  let totalMes = {
-    to : serverName ,//客服人员
-    message : message,
-    user:name
-  }
-
-  ws.send(JSON.stringify(totalMes));  
-  myMessage.value='';
+  ws.send(JSON.stringify(data));
+  insert('send',data);
 };  
-function changeTo(name){
-  serverName=name;
-  console.log(serverName);
-};
-function addIntoWindow(flag,user,message){
-  let li=document.createElement('LI');
-  let myName;
-   if(flag=='client'){
-     li.classList.add('right'); 
-   }else if(flag=='costmon'){
-     li.classList.add('left');
-   }
-   li.innerHTML=`<p>${user} ${getNow()}</p><p>${message}</p>`;
 
-   chatWindow.appendChild(li);
-};
-function getNow(){
-let time=new Date();
-let year=time.getFullYear();
-let month=time.getMonth()+1;
-let day=time.getDate();
-let hour=time.getHours();
-let min=time.getMinutes();
-let sec=time.getSeconds();
-if(month<10){
-  month="0"+month;
+function insert(type,data) {
+  let content = $("#chatWindow").html();
+  if(type == 'send'){
+    content += "<li class='right'><p><strong>"+data.user_code+"</strong>"+data.time+"</p><p>"+data.message+"</p></li>"
+  }else if(type == 'receive'){
+    content += "<li class='left'><p><strong>"+data.user_code+"</strong>"+data.time+"</p><p>"+data.message+"</p></li>"
+  }
+  $("#chatWindow").html(content);
 }
-if(day<10){
-  day="0"+day;
-}
-if(hour<10){
-  hour="0"+hour;
-}
-if(min<10){
-  min="0"+min;
-}
-if(sec<10){
-  sec="0"+sec;
-}
-return `${year}-${month}-${day} ${hour}:${month}:${sec}`;
-};
-function exit() {  
-  let r = ws.close();  
-  console.log("退出", r);  
-}  
